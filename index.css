@@ -1,0 +1,109 @@
+/* Custom styles for Birthday Page */
+/* This file contains additional styles that complement the inline styles in index.html */
+
+.custom-shadow {
+    box-shadow: 0 5px 15px rgba(253, 164, 175, 0.3);
+}
+
+/* Additional keyframe animations */
+@keyframes sparkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #FDA4AF;
+    animation: sparkle 1.5s infinite;
+}
+
+/* Enhance image transitions */
+.photo-transition {
+    transition: all 0.5s ease;
+}
+
+.photo-transition:hover {
+    transform: translateY(-10px);
+}
+
+/* Additional background patterns */
+.pattern-dots {
+    background-color: #FFF5F7;
+    background-image: radial-gradient(#FDA4AF 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Utility classes for typography */
+.text-shadow {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #F472B6, #DB2777);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FFF5F7;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #F472B6;
+    border-radius: 6px;
+    border: 3px solid #FFF5F7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #DB2777;
+}
+
+/* Custom animations for page elements */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInFromLeft 1s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInFromRight 1s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .mobile-text-center {
+        text-align: center;
+    }
+    
+    .mobile-stack {
+        flex-direction: column;
+    }
+}
