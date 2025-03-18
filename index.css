@@ -5,35 +5,38 @@
     box-shadow: 0 5px 15px rgba(253, 164, 175, 0.3);
 }
 
-/* Additional keyframe animations */
+/* Simplified keyframe animations */
 @keyframes sparkle {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
 }
 
+/* Reduce animation complexity */
 .sparkle {
     position: absolute;
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background-color: #FDA4AF;
-    animation: sparkle 1.5s infinite;
+    animation: sparkle 2s infinite; /* Slowed down from 1.5s to 2s */
+    will-change: opacity; /* Optimize for GPU acceleration */
 }
 
-/* Enhance image transitions */
+/* More efficient image transitions */
 .photo-transition {
-    transition: all 0.5s ease;
+    transition: transform 0.5s ease;
+    will-change: transform; /* Optimize for GPU acceleration */
 }
 
 .photo-transition:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px); /* Reduced movement from -10px to -8px */
 }
 
-/* Additional background patterns */
+/* Simplified background patterns */
 .pattern-dots {
     background-color: #FFF5F7;
     background-image: radial-gradient(#FDA4AF 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-size: 30px 30px; /* Increased size from 20px to 30px */
 }
 
 /* Utility classes for typography */
@@ -47,9 +50,9 @@
     -webkit-text-fill-color: transparent;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - simplified */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px; /* Reduced from 12px */
 }
 
 ::-webkit-scrollbar-track {
@@ -62,14 +65,10 @@
     border: 3px solid #FFF5F7;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background-color: #DB2777;
-}
-
-/* Custom animations for page elements */
+/* Optimized slide animations */
 @keyframes slideInFromLeft {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(-50px); /* Reduced from -100% to -50px */
         opacity: 0;
     }
     100% {
@@ -80,7 +79,7 @@
 
 @keyframes slideInFromRight {
     0% {
-        transform: translateX(100%);
+        transform: translateX(50px); /* Reduced from 100% to 50px */
         opacity: 0;
     }
     100% {
@@ -90,11 +89,13 @@
 }
 
 .slide-in-left {
-    animation: slideInFromLeft 1s ease-out;
+    animation: slideInFromLeft 0.8s ease-out; /* Reduced from 1s to 0.8s */
+    will-change: transform, opacity;
 }
 
 .slide-in-right {
-    animation: slideInFromRight 1s ease-out;
+    animation: slideInFromRight 0.8s ease-out; /* Reduced from 1s to 0.8s */
+    will-change: transform, opacity;
 }
 
 /* Responsive adjustments */
@@ -105,5 +106,12 @@
     
     .mobile-stack {
         flex-direction: column;
+    }
+    
+    /* Disable some animations on mobile */
+    .slide-in-left, 
+    .slide-in-right {
+        animation: none;
+        opacity: 1;
     }
 }

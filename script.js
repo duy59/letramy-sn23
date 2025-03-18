@@ -1,6 +1,6 @@
 // Birthday Celebration JavaScript
 
-// Image slideshow functionality
+// Image slideshow functionality with reduced frequency
 function setupImageSlideshow() {
     const images = document.querySelectorAll('.photo-transition img');
     let currentIndex = 0;
@@ -23,7 +23,7 @@ function setupImageSlideshow() {
                 images[currentIndex].style.transform = 'scale(1)';
                 currentIndex = (currentIndex + 1) % images.length;
             }, 1000);
-        }, 3000);
+        }, 5000); // Reduced frequency from 3s to 5s
     }
 }
 
@@ -57,12 +57,12 @@ function addRandomWishes() {
     }
 }
 
-// Interactive elements
+// Interactive elements with fewer balloons
 function setupInteractiveElements() {
-    // Add balloon animation
+    // Add balloon animation - reduced from 5 to 3 balloons
     const mainContainer = document.querySelector('main');
     
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'absolute';
         balloon.style.bottom = '-50px';
@@ -77,7 +77,7 @@ function setupInteractiveElements() {
         balloonInner.style.width = '40px';
         balloonInner.style.height = '50px';
         balloonInner.style.borderRadius = '50%';
-        balloonInner.style.background = ['#FFC0CB', '#FFB6C1', '#FF69B4', '#FF1493', '#DB7093'][i % 5];
+        balloonInner.style.background = ['#FFC0CB', '#FFB6C1', '#FF69B4'][i % 3];
         balloonInner.style.position = 'relative';
         
         // Create balloon string
@@ -95,7 +95,7 @@ function setupInteractiveElements() {
         setTimeout(() => {
             balloon.style.bottom = '110vh';
             balloon.style.transform = 'scale(1) rotate(' + (Math.random() * 40 - 20) + 'deg)';
-        }, i * 2000 + 1000);
+        }, i * 3000 + 1000); // Spread out animation timing
     }
 }
 
@@ -122,43 +122,31 @@ function typewriterEffect() {
     }
 }
 
-// Initialize age counter
+// Initialize age counter - simplified
 function initializeAgeCounter() {
-    // Count up to 23
+    // Simplified counter that doesn't animate every number
     const ageElement = document.createElement('div');
     ageElement.className = 'fixed bottom-5 right-5 bg-pink-500 text-white text-3xl font-bold p-4 rounded-full z-50 shadow-lg';
     ageElement.style.opacity = '0';
     ageElement.style.transition = 'all 0.5s ease';
+    ageElement.textContent = '23 ❤️'; // Set final value immediately
     document.body.appendChild(ageElement);
-    
-    let count = 1;
     
     setTimeout(() => {
         ageElement.style.opacity = '1';
+        ageElement.classList.add('animate__animated', 'animate__heartBeat');
         
-        const interval = setInterval(() => {
-            ageElement.textContent = count;
-            ageElement.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+            ageElement.classList.remove('animate__animated', 'animate__heartBeat');
             
+            // Remove after 5 seconds
             setTimeout(() => {
-                ageElement.classList.remove('animate__animated', 'animate__pulse');
-            }, 500);
-            
-            count++;
-            
-            if (count > 23) {
-                clearInterval(interval);
-                ageElement.textContent = '23 ❤️';
-                ageElement.classList.add('animate__animated', 'animate__heartBeat');
-                
+                ageElement.style.opacity = '0';
                 setTimeout(() => {
-                    ageElement.style.opacity = '0';
-                    setTimeout(() => {
-                        ageElement.remove();
-                    }, 500);
-                }, 3000);
-            }
-        }, 200);
+                    ageElement.remove();
+                }, 500);
+            }, 5000);
+        }, 1000);
     }, 3000);
 }
 
@@ -190,8 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Snowfall effect but with hearts
-function createHeartSnowfall() {
+// Instead of continuous heart snowfall, create a one-time heart burst effect
+function createOptimizedHeartEffect() {
     const heartsContainer = document.createElement('div');
     heartsContainer.style.position = 'fixed';
     heartsContainer.style.top = '0';
@@ -205,7 +193,8 @@ function createHeartSnowfall() {
     const heartColors = ['#FF9999', '#FF5C8D', '#FF477E', '#FF85A1', '#FFC0CB'];
     const heartCharacters = ['❤', '♥', '💕', '💖', '💗'];
     
-    setInterval(() => {
+    // Create hearts once, not continuously
+    for (let i = 0; i < 30; i++) { // Reduced from 100+ to just 30 hearts
         const heart = document.createElement('div');
         heart.style.position = 'absolute';
         heart.style.fontSize = `${Math.random() * 15 + 10}px`;
@@ -218,22 +207,78 @@ function createHeartSnowfall() {
         
         heartsContainer.appendChild(heart);
         
+        // Animate each heart once
         const animation = heart.animate(
             [
                 { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
                 { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
             ],
             {
-                duration: Math.random() * 5000 + 5000,
-                easing: 'cubic-bezier(0.37, 0, 0.63, 1)'
+                duration: Math.random() * 3000 + 3000, // Shorter duration
+                easing: 'cubic-bezier(0.37, 0, 0.63, 1)',
+                fill: 'forwards' // Keep the final state
+            }
+        );
+        
+        // Remove the heart when animation completes
+        animation.onfinish = () => {
+            heart.remove();
+        };
+    }
+    
+    // Remove the entire container after all animations are likely done
+    setTimeout(() => {
+        heartsContainer.remove();
+    }, 8000);
+}
+
+// Optimize confetti function to be called from the main HTML file
+window.createOptimizedConfetti = function() {
+    const confettiContainer = document.getElementById('confetti-container');
+    if (!confettiContainer) return;
+    
+    // Clear any existing confetti
+    confettiContainer.innerHTML = '';
+    
+    const colors = ['#FFC0CB', '#FFB6C1', '#FF69B4', '#FF1493', '#DB7093'];
+    
+    // Create fewer confetti pieces
+    for (let i = 0; i < 50; i++) { // Reduced from 100 to 50
+        const confetti = document.createElement('div');
+        confetti.style.position = 'absolute';
+        confetti.style.width = Math.random() * 8 + 5 + 'px';
+        confetti.style.height = Math.random() * 8 + 5 + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = -20 + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.opacity = Math.random() + 0.5;
+        
+        confettiContainer.appendChild(confetti);
+        
+        // Single animation that doesn't repeat
+        const animation = confetti.animate(
+            [
+                { transform: 'translate3d(0, 0, 0) rotate(0deg)', opacity: 1 },
+                { transform: `translate3d(${Math.random() * 100 - 50}px, 100vh, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ],
+            {
+                duration: Math.random() * 2000 + 2000, // Shorter duration
+                easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)',
+                fill: 'forwards'
             }
         );
         
         animation.onfinish = () => {
-            heart.remove();
+            confetti.remove();
         };
-    }, 300);
-}
+    }
+    
+    // Clean up container after all animations complete
+    setTimeout(() => {
+        confettiContainer.innerHTML = '';
+    }, 5000);
+};
 
-// Start heart snowfall after 5 seconds
-setTimeout(createHeartSnowfall, 5000); 
+// Create heart effect once instead of continuous snowfall
+setTimeout(createOptimizedHeartEffect, 5000); 
